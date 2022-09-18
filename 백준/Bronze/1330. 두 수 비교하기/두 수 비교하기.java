@@ -1,3 +1,5 @@
+// 1. input에 throws IOException 쓰는 거 까먹음
+// 2. 그리고 전역변수로 A, B 선언했는데 생각없이 input 안에서 A, B 선언 다시 함
 import java.io.*;
 import java.util.*;
 
