@@ -37,14 +37,14 @@ public class Main {
                 if (name[i].equals(name[i-1])) {
                     name[i] = null;
                     name[i-1] = null;
-                    i++;
+                    i--;
                 }
                 else {
                     sb.append(name[i]).append("\n");
                 }
             }
         }
-        
+
         if (name[0] != null) {
             sb.append(name[0]).append("\n");
         }
