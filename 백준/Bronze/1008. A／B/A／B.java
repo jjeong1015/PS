@@ -1,26 +1,19 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
     static BufferedReader br;
     static StringTokenizer st;
     static StringBuilder sb;
-    static double A, B;
 
     public static void main(String[] args) throws IOException {
-        input();
-        logic();
-    }
-    static void input() throws IOException {
         br = new BufferedReader(new InputStreamReader(System.in));
-        st = new StringTokenizer(br.readLine());
         sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
+        int A = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
 
-        A = Double.parseDouble(st.nextToken());
-        B = Double.parseDouble(st.nextToken());
-    }
-    static void logic() {
-        sb.append(A / B);
+        sb.append((double)A/B);
         System.out.println(sb);
     }
 }
