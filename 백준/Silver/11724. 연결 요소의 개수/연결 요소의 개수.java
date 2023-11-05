@@ -2,61 +2,63 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static BufferedReader br;
-    static StringTokenizer st;
-    static StringBuilder sb;
-    static int N, M; // 정점 개수, 간선 개수
-    static int s, e; // 간선 양 끝점(u, v)
-    static int count = 0; // 연결 요소 개수
-    static boolean visited[]; // 방문 배열
-    static ArrayList<Integer> A[];
+   static BufferedReader br;
+   static StringBuilder sb;
+   static StringTokenizer st;
+   static int N, M;
+   static int s, e;
+   static int count = 0;
+   static boolean visited[];
+   static List<Integer> A[];
 
-    public static void main(String[] args) throws IOException {
-        input();
-        logic();
-    }
+   public static void main(String[] args) throws IOException {
+       input();
+       logic();
+   }
 
-    static void input() throws IOException {
-        br = new BufferedReader(new InputStreamReader(System.in));
-        sb = new StringBuilder();
-        st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        visited = new boolean[N+1];
-        A = new ArrayList[N+1];
-        for (int i=1; i<N+1; i++) { // A 인접 리스트의 각 ArrayList 초기화
-            A[i] = new ArrayList<Integer>();
-        }
-        for (int i=0; i<M; i++) {
-            st = new StringTokenizer(br.readLine());
-            s = Integer.parseInt(st.nextToken()); // u
-            e = Integer.parseInt(st.nextToken()); // v
+   static void input() throws IOException {
+       br = new BufferedReader(new InputStreamReader(System.in));
+       sb = new StringBuilder();
+       st = new StringTokenizer(br.readLine());
+       N = Integer.parseInt(st.nextToken());
+       M = Integer.parseInt(st.nextToken());
+       visited = new boolean[N+1];
+       A = new ArrayList[N+1]; // ArrayList형 배열을 생성(아파트로 치면 동)
+       
+       for (int i=1; i<N+1; i++) {
+           A[i] = new ArrayList(); // 배열 안에 ArrayList를 생성 (동 안에 호수(동적 배열)를 생성)
+       }
+       
+       for (int i=0; i<M; i++) {
+           st = new StringTokenizer(br.readLine());
+           s = Integer.parseInt(st.nextToken());
+           e = Integer.parseInt(st.nextToken());
 
-            A[s].add(e); // s-e ex) 1-2 / 2-5 / 5-1 / 3-4 / 4-6
-            A[e].add(s); // e-s ex) 2-1 / 5-2 / 1-5 / 4-3 / 6-4
-        }
-    }
+           A[s].add(e);
+           A[e].add(s);
+       }
+   }
 
-    static void DFS(int v) {
-        if (visited[v]) {  // 연결 노드 중 방문하지 않았던 노드만 탐색 (현재 노드 = 방문 노드)
-            return;
-        }
-        visited[v] = true; // visited 배열에 현재 노드 방문 기록
-        for (int i:A[v]) {
-            if (visited[i] == false) { // 현재 노드의 연결 노드 중 방문하지 않은 노드로 DFS 실행
-                DFS(i);
-            }
-        }
-    }
+   static void DFS(int v) {
+       if (visited[v]) {
+           return;
+       }
+       visited[v] = true;
+       for (int i:A[v]) {
+           if (visited[i] == false) {
+               DFS(i);
+           }
+       }
+   }
 
-    static void logic() {
-        for (int i=1; i<N+1; i++) {
-            if (!visited[i]) { // 방문하지 않은 노드가 없을 때까지 반복
-                count++; // 연결 요소 개수 증가
-                DFS(i);
-            }
-        }
-        sb.append(count);
-        System.out.println(sb);
-    }
+   static void logic() {
+       for (int i=1; i<N+1; i++) {
+           if (!visited[i]) {
+               count++;
+               DFS(i);
+           }
+       }
+       sb.append(count);
+       System.out.println(sb);
+   }
 }
